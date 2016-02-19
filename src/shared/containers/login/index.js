@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
-import Button from '../../components/button';
 import Container from '../../components/container';
+import fetch from '../../util/fetch-proxy';
 
 export default class Login extends Component {
-  static login = () => {
-    //console.log(arguments);
-  };
+  constructor (props) {
+    super(props);
+    this.fetch = fetch();
+  }
+
+  doLogin () {
+    this.fetch('http://localhost:8000/api/login').then((response)=>{
+      window.location = response.url;
+    });
+  }
 
   render () {
     return(
       <Container>
-        <input placeholder="Your Badger email" type="text" />
-        <input placeholder="Your password" type="password" />
-        <Button onclick={this.login}>Login</Button>
+        <button onClick={this.doLogin.bind(this)}>Login</button>
       </Container>
     );
   }
