@@ -11,7 +11,8 @@ export default class Routes {
   };
 
   authenticate = (req, res) => {
-    this.auth.getData(req.query.code).then(() => {
+    this.auth.getData(req.query.code).then((token) => {
+      req.session.token = token;
       res.redirect('/dashboard');
     });
   };

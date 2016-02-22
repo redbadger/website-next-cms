@@ -7,19 +7,27 @@ import HttpError from './util/http-error';
 import './containers/error';
 
 const routeFn = (store, args, ...children) => {
-  if (args.component && args.component.fetchData) {
+  if (args.component) {
     args = {
       ...args,
       onEnter: (nextState, replaceState, done) => {
-        args.component
-          .fetchData(store.dispatch, store.getState, nextState)
-          .then((response) => {
-            if (response && ((response instanceof HttpError) || response.error)) {
-              done(response.error || response);
-            } else {
-              done();
-            }
-          });
+        if (args.component.requiresAuth) {
+          console.log(nextState.location.pathname)
+        }
+
+        if (args.component.fetchData) {
+          args.component
+            .fetchData(store.dispatch, store.getState, nextState)
+            .then((response) => {
+              if (response && ((response instanceof HttpError) || response.error)) {
+                done(response.error || response);
+              } else {
+                done();
+              }
+            });
+        } else {
+          done();
+        }
       }
     };
   }

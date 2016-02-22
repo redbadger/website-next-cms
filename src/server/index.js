@@ -4,13 +4,17 @@ import router from './router';
 import API from './api';
 import Auth from './api/auth';
 import fetch from '../shared/util/fetch-proxy';
+import session from 'express-session';
 
 const auth = new Auth(fetch(), config.google.clientId, config.google.secret);
 const api = API(auth);
 
 const app = express();
 
-app.use(express.static('static'));
+app.use(session({
+  secret: 'whatever'
+  //saveUninitialized: false
+}));
 
 app.use('/assets', express.static('build/assets'));
 
