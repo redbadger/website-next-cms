@@ -12,6 +12,7 @@ const routeFn = (store, args, ...children) => {
       ...args,
       onEnter: (nextState, replaceState, done) => {
         if (args.component.requiresAuth) {
+          console.log(store.getState())
           console.log(nextState.location.pathname)
         }
 

@@ -62,7 +62,11 @@ export const requestHandler = (req, res, store, render) => {
 
 export default((req, res) => {
   const history = createMemoryHistory();
-  const store = createStore(history);
+  const initialState = {
+    user: req.session.user || null
+  };
+  const store = createStore(history, initialState);
+  console.log(req.session)
 
   const query = qs.stringify(req.query);
   const url = req.path + (query.length ? '?' + query : '');
