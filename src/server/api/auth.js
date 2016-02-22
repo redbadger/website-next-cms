@@ -1,4 +1,5 @@
 import google from 'googleapis';
+import decode from '../util/jwt';
 
 export default class Auth {
   constructor (fetch, clientId, secret) {
@@ -9,7 +10,7 @@ export default class Auth {
   getUrl () {
     return this.client.generateAuthUrl({
       access_type: 'offline', // will return a refresh token
-      scope: 'openid profile email',
+      scope: 'openid email profile',
       hd: 'red-badger.com'
     });
   }
@@ -17,10 +18,10 @@ export default class Auth {
   getData (code) {
     return new Promise((resolve, reject) => {
       this.client.getToken(code, (err, tokens) => {
-        if(err) {
+        if (err) {
           reject(err);
         } else {
-          const decodedID = new Buffer(tokens.id_token, 'base64').toString('ascii');
+          const decodedID = decode(tokens.id_token);
           this.client.setCredentials(tokens);
           resolve(decodedID);
         }

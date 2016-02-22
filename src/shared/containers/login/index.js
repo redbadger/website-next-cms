@@ -6,6 +6,7 @@ export default class Login extends Component {
   constructor (props) {
     super(props);
     this.fetch = fetch();
+    this.doLogin = this.doLogin.bind(this);
   }
 
   doLogin () {
@@ -17,7 +18,7 @@ export default class Login extends Component {
   render () {
     return(
       <Container>
-        <button onClick={this.doLogin.bind(this)}>Login</button>
+        <button onClick={this.doLogin}>Login</button>
       </Container>
     );
   }

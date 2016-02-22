@@ -1,5 +1,5 @@
-import Auth from 'auth';
-import { expect } from 'chai';
+// import Auth from 'auth';
+// import { expect } from 'chai';
 
 describe('Authentication', () => {
   describe('login', () => {
