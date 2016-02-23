@@ -12,7 +12,8 @@ const api = API(auth);
 const app = express();
 
 app.use(session({
-  secret: 'whatever'
+  secret: 'whatever',
+  unset: 'destroy'
   //saveUninitialized: false
 }));
 

@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import Container from '../../components/container';
-import fetch from '../../util/fetch-proxy';
 import { connect } from 'react-redux';
-import { fetchLogin } from '../../state/user/actions';
+import { login } from '../../state/user/actions';
 
 class LoginComponent extends Component {
   render () {
@@ -21,7 +20,7 @@ LoginComponent.propTypes = {
 const mapDispatchToProps = (dispatch) => {
   return {
     onLogin: () => {
-      dispatch(fetchLogin())
+      dispatch(login())
     }
   }
 }

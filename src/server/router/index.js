@@ -62,6 +62,7 @@ export const requestHandler = (req, res, store, render) => {
 
 export default((req, res) => {
   const history = createMemoryHistory();
+  console.log(req.session.user)
   const initialState = {
     user: req.session.user || null
   };

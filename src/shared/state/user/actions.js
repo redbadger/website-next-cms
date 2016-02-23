@@ -1,15 +1,40 @@
 import fetch from '../../util/fetch-proxy';
+import { push } from 'react-router-redux';
 
-export function fetchLogin() {
+export function login() {
   return dispatch => {
     return fetch()('http://localhost:8000/api/login')
       .then((response)=>{window.location = response.url;})
-      .catch(dispatch(fetchError()))
+      .catch(dispatch(loginError()))
   }
 }
 
-function fetchError() {
+function loginError() {
   return {
-    type: 'FETCH_ERROR',
+    type: 'LOGIN_ERROR',
+  }
+}
+
+export function logout() {
+  return dispatch => {
+    return fetch()('http://localhost:8000/api/logout')
+      .then((response)=>{
+        dispatch(logoutSuccess());
+        dispatch(push('/'));
+      })
+      .catch(dispatch(logoutError()))
+  }
+}
+
+function logoutError() {
+  return {
+    type: 'LOGOUT_ERROR',
+  }
+}
+
+function logoutSuccess() {
+  return {
+    type: 'LOGOUT_SUCCESS',
+    user: null
   }
 }

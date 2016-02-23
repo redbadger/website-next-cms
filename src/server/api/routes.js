@@ -10,6 +10,17 @@ export default class Routes {
     });
   };
 
+  logout = (req, res) => {
+    console.log('destroy session')
+    req.session.destroy(() => {
+      console.log('session destroyed', req.session)
+      res.send({
+        status: 200,
+        url: '/'
+      });
+    });
+  };
+
   authenticate = (req, res) => {
     this.auth.getData(req.query.code).then((data) => {
       req.session.user = data.payload;

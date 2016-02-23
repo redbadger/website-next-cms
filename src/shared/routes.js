@@ -10,10 +10,13 @@ const routeFn = (store, args, ...children) => {
   if (args.component) {
     args = {
       ...args,
-      onEnter: (nextState, replaceState, done) => {
-        if (args.component.requiresAuth) {
-          console.log(store.getState())
-          console.log(nextState.location.pathname)
+      onEnter: (nextState, replace, done) => {
+        if (args.component.requiresAuth && !store.getState().user) {
+          done(new HttpError(401));
+        }
+
+        if (nextState.location.pathname === '/' && store.getState().user) {
+          replace('/dashboard');
         }
 
         if (args.component.fetchData) {

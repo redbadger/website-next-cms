@@ -4,6 +4,7 @@ import Root from '../root';
 import typography from '../../components/typography/style.css';
 import image from './missing_badger.png';
 import styles from './style.css';
+import { Link } from 'react-router';
 
 export default class ErrorPage extends Component {
   static propTypes = {
@@ -18,6 +19,13 @@ export default class ErrorPage extends Component {
         <div>
           <p>{"Our server seems to be having a little strop."}</p>
           <p>{"Please try reloading the page or come back later."}</p>
+        </div>
+      );
+    } else if(this.props.status === 401) {
+      text = (
+        <div>
+          <p>{"You're not authorized to view this page."}</p>
+          <p>{"Please log in"}<Link href="/">here</Link></p>
         </div>
       );
     } else {
