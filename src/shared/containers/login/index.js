@@ -1,25 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react'
 import Container from '../../components/container';
 import fetch from '../../util/fetch-proxy';
+import { connect } from 'react-redux';
+import { fetchLogin } from '../../state/user/actions';
 
-export default class Login extends Component {
-  constructor (props) {
-    super(props);
-    this.fetch = fetch();
-    this.doLogin = this.doLogin.bind(this);
-  }
-
-  doLogin () {
-    this.fetch('http://localhost:8000/api/login').then((response)=>{
-      window.location = response.url;
-    });
-  }
-
+class LoginComponent extends Component {
   render () {
     return(
       <Container>
-        <button onClick={this.doLogin}>Login</button>
+        <button onClick={this.props.onLogin}>Login</button>
       </Container>
     );
   }
 }
+
+LoginComponent.propTypes = {
+  onLogin: PropTypes.func.isRequired
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogin: () => {
+      dispatch(fetchLogin())
+    }
+  }
+}
+
+const Login = connect(
+  null,
+  mapDispatchToProps
+)(LoginComponent)
+
+export default Login
