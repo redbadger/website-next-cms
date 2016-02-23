@@ -1,7 +1,7 @@
 import qs from 'query-string';
 import React from 'react';
 import { renderToString, renderToStaticMarkup } from 'react-dom/server';
-import createStore from '../../shared/create-store';
+import createStore from '../../shared/state/store';
 
 import { match, createMemoryHistory, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
@@ -66,7 +66,6 @@ export default((req, res) => {
     user: req.session.user || null
   };
   const store = createStore(history, initialState);
-  console.log(req.session)
 
   const query = qs.stringify(req.query);
   const url = req.path + (query.length ? '?' + query : '');

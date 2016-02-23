@@ -1,6 +1,8 @@
 import google from 'googleapis';
 import decode from '../util/jwt';
 
+const plus = google.plus('v1');
+
 export default class Auth {
   constructor (fetch, clientId, secret) {
     this.fetch = fetch;
@@ -10,7 +12,7 @@ export default class Auth {
   getUrl () {
     return this.client.generateAuthUrl({
       access_type: 'offline', // will return a refresh token
-      scope: 'openid email profile',
+      scope: 'https://www.googleapis.com/auth/plus.login',
       hd: 'red-badger.com'
     });
   }
@@ -21,9 +23,8 @@ export default class Auth {
         if (err) {
           reject(err);
         } else {
-          const decodedID = decode(tokens.id_token);
           this.client.setCredentials(tokens);
-          resolve(decodedID);
+          resolve(decode(tokens.id_token));
         }
       });
     });

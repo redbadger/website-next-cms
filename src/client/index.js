@@ -1,5 +1,5 @@
 import getRoutes from '../shared/routes';
-import createStore from '../shared/create-store';
+import createStore from '../shared/state/store';
 
 import React from 'react';
 import { render } from 'react-dom';

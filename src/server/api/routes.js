@@ -12,7 +12,7 @@ export default class Routes {
 
   authenticate = (req, res) => {
     this.auth.getData(req.query.code).then((data) => {
-      req.session.user = data.payload;
+      req.session.user = data;
       res.redirect('/dashboard');
     });
   };
